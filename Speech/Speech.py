@@ -1,15 +1,15 @@
 import speech_recognition as sr
 import pocketsphinx
 import pyaudio
-from Router import Router 
+import Speech.Router as Router
 import pyttsx3
 
 
 class Speech:
 
-    def __init__(self):
-        self.router = Router(self,functionality)
-        self.wiki_handler = functionality.wiki_handler.WikiHandler()
+    def __init__(self , wiki_handler):
+        self.router = Router.Router(self)
+        self.wiki_handler = wiki_handler.WikiHandler()
         
     def say(self,text):
         engine = pyttsx3.init() 
@@ -24,7 +24,14 @@ class Speech:
                 return r.recognize_google(a)
             except:
                 pass
-    def gather_voice_input_then_route():
+
+    def gather_voice_init(self):
+        data = self.voice_input()
+        if data == "Nova":
+            self.say("Yes ,I am listening")
+            self.gather_voice_input_and_route()
+
+    def gather_voice_input_and_route(self):
         data = self.voice_input()
         if data == None:
             self.say("Sorry Didn't quite get that!")

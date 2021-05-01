@@ -19,7 +19,7 @@ class Router:
             pass
         elif command == "logging mode":
             pass
-        elif command = "peer status":
+        elif command == "peer status":
             pass
         else:
             self.route_priority_two(command)
