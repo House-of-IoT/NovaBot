@@ -22,9 +22,18 @@ class Router:
         elif command = "peer status":
             pass
         else:
+            self.route_priority_two(command)
+
+    def route_priority_two(self,command):
+        if command == "weather":
             pass
-
-
+        elif command == "events":#calendar
+            pass
+        elif command == "random humor":
+            pass
+        elif command == "server status":
+            pass
+        
 
             
 
