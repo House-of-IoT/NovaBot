@@ -9,7 +9,7 @@ class Speech:
 
     def __init__(self , wiki_handler):
         self.router = Router.Router(self)
-        self.wiki_handler = wiki_handler.WikiHandler()
+        self.wiki_handler = wiki_handler.WikiHandler(self)
         
     def say(self,text):
         engine = pyttsx3.init() 
@@ -18,6 +18,7 @@ class Speech:
 
     def voice_input(self):
         r = sr.Recognizer()
+        
         with sr.Microphone() as source:
             try:
                 a= r.listen(source,timeout=2,phrase_time_limit=2)

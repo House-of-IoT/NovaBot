@@ -5,8 +5,9 @@ class Router:
 
     def route_priority_one(self ,command):
        
-        if command == "wikipedia":
-            pass
+        if "what is" in command:
+            self.parent.wiki_handler.search_and_say(command)
+
         elif command == "status":
             pass
         elif command == "twitter status":
@@ -33,7 +34,7 @@ class Router:
             pass
         elif command == "server status":
             pass
-        
+    
 
             
 
