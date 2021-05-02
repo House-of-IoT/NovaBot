@@ -17,6 +17,7 @@ class Logger:
         today = date.today()
         new_message = str(today) +" error:" + message
         self.write_to_log_file(new_message)
+        
     def start():
         message = "Starting Nova.."
         self.write_to_log_file(message)
