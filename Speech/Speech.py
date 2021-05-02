@@ -1,15 +1,20 @@
 import speech_recognition as sr
 import pocketsphinx
 import pyaudio
-import Speech.Router as Router
 import pyttsx3
-
+import sys
+from . import Router
+sys.path.append('../CommandFunctionality')
+import CommandFunctionality.wiki_handler as wh
+import CommandFunctionality.request_handler as rh
 
 class Speech:
 
-    def __init__(self , wiki_handler):
+    def __init__(self ):
         self.router = Router.Router(self)
-        self.wiki_handler = wiki_handler.WikiHandler(self)
+        self.request_handler = rh.RequestHandler(self)
+        self.wiki_handler = wh.WikiHandler(self)
+        
         
     def say(self,text):
         engine = pyttsx3.init() 
