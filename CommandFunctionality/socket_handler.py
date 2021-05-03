@@ -10,12 +10,13 @@ class SocketHandler:
     def connect_to_master_pi(self):
         try:
             self.client.connect(('127.0.0.1',50222))
-            return True
+            self.listen()
+            self.parent.speech.say("Now Connected to master")
         except:
-            self.speech.say("Can't connect to server , please try again")
-            return False
+           self.parent.speech.say("Can't connect to master")
 
     def listen():
+
         message = self.client.recv(100).decode("utf8")
         if message == "disable":
             self.parent.enabled = False

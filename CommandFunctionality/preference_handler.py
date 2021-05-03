@@ -21,4 +21,4 @@ class PreferenceHandler:
             with open("preference.json" , "w") as file:
                 file.write(new_data)
         except:
-            self.parent.say("Issue changing")
+            self.parent.say("Issue changing Preferences")
