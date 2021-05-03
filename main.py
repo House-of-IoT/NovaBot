@@ -1,25 +1,27 @@
 
 from Speech.Speech import Speech
+from CommandFunctionality.socket_handler import SocketHandler
 import socket
-
-
 
 class Main:
     def __init__(self):
-        self.speech = Speech()
+        self.speech = Speech(self)
         self.count = 0
         self.running = True
+        self.enabled = True
+        self.socket_handler =  SocketHandler(self)
 
-    def start(self):
-        self.speech.say("You are not connected to the local server! Just a note.")
-        self.speech.say("I am now listening for commands.")
+    def start(self:int) :
+        self.speech.say("Hello")
+        self.socket_handler.connect_to_master_pi()
         while self.running == True:
-       
-            self.speech.gather_voice_init()
-    
+            if self.enabled == True:
+                self.speech.gather_voice_init()
 
-if __name__ == "__main__":
+
+    
+if __name__ == "__main__":  
     main = Main()
-    main.speech.request_handler.say_geek_joke()
+    main.start()
         
         
