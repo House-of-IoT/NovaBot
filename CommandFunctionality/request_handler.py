@@ -7,7 +7,7 @@ class RequestHandler:
         self.data = None
         self.parent = parent
 
-    def issue():
+    def issue(self):
         self.parent.say("There was an issue with the request!")
         
     def get(self,url,timeout):
