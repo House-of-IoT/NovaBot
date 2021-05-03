@@ -6,7 +6,7 @@ class Router:
     def route_priority_one(self ,command):
        
         if "what is" in command:
-            self.parent.wiki_handler.search_and_say(command)
+            self.parent.wiki_handler.search_and_say()
 
         elif command == "status":
             pass
@@ -30,10 +30,21 @@ class Router:
             pass
         elif command == "events":#calendar
             pass
-        elif command == "random humor":
-            pass
         elif command == "server status":
             pass
+        elif command == "geek quote" or command == "geek quotes" or command =="geek":
+            self.parent.request_handler.say_geek_quote()
+
+        elif command == "connect":
+             self.parent.parent.socket_handler.connect_to_master_pi()
+        elif command == "joke":
+            self.parent.request_handler.say_geek_joke()
+        elif command == "sleep":
+            self.parent.silent_mode_temp()
+        elif command == "silent":
+            self.parent.silent_mode_until_turned_on()
+        else:
+            print(command)
     
 
             

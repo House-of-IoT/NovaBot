@@ -2,6 +2,7 @@ import speech_recognition as sr
 import pocketsphinx
 import pyaudio
 import pyttsx3
+import time
 import sys
 from . import Router
 sys.path.append('../CommandFunctionality')
@@ -10,10 +11,11 @@ import CommandFunctionality.request_handler as rh
 
 class Speech:
 
-    def __init__(self ):
+    def __init__(self , parent ):
         self.router = Router.Router(self)
         self.request_handler = rh.RequestHandler(self)
         self.wiki_handler = wh.WikiHandler(self)
+        self.parent = parent
         
         
     def say(self,text):
@@ -37,9 +39,19 @@ class Speech:
             self.say("Yes ,I am listening")
             self.gather_voice_input_and_route()
 
+    def silent_mode_temp(self):
+        time.sleep(40)
+
+    def silent_mode_until_turned_on(self):
+        while True:
+            data = self.voice_input()
+            if data == "Nova turn on":
+                break
+
     def gather_voice_input_and_route(self):
         data = self.voice_input()
         if data == None:
             self.say("Sorry Didn't quite get that!")
         else:
             self.router.route_priority_one(data)
+    
