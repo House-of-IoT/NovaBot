@@ -1,39 +1,34 @@
 import socket
 import threading
-
+import websockets
 class SocketHandler:
     def __init__(self , parent):
         self.connected = False
-        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_connection = None
         self.parent = parent
 
-    def connect_to_master_pi(self):
-        try:
-            self.client.connect(('127.0.0.1',50222))
-            self.listen()
-            self.parent.speech.say("Now Connected to master")
-        except:
-           self.parent.speech.say("Can't connect to master")
 
-    def listen():
-
-        message = self.client.recv(100).decode("utf8")
-        if message == "disable":
-            self.parent.enabled = False
-        elif message == "say":
-            phrase = self.client.recv(100).decode("utf8")
-            self.parent.speech.say(phrase)
-        elif message == "stream_video":
-            pass
-        elif message == "stream_audio":
-            pass
-        elif message == "alarm":
-            pass
-        elif message == "performance":
-            pass
+    async def listen(self):
         
-    def start_listening_from_master():
-        if self.connect_to_master_pi() == True:
-            thread = threading.Thread(target= self.listen)
-            thread.start()
-
+            try:
+                async with websockets.connect('ws://localhost:50223') as websocket:
+                    while True:
+                        
+                        message = await websocket.recv()
+                        await websocket.send("got")
+                        if message == "disable":
+                            self.parent.enabled = False
+                        elif message == "say":
+                            
+                            self.parent.speech.say("got")
+                        elif message == "stream_video":
+                            pass
+                        elif message == "stream_audio":
+                            pass
+                        elif message == "alarm":
+                            pass
+                        elif message == "performance":
+                            pass
+            except:
+                pass
+            
