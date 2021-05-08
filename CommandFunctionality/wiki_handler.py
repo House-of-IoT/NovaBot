@@ -11,7 +11,7 @@ class WikiHandler:
     def gather_page(self,page_name):
         self.count +=1
         try:
-            self.current_result = wikipedia.summary(page_name)
+            self.current_result = wikipedia.summary(page_name,sentences = 5)
             return True
         except:
             return False
