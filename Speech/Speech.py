@@ -8,7 +8,7 @@ from . import Router
 sys.path.append('../CommandFunctionality')
 import CommandFunctionality.wiki_handler as wh
 import CommandFunctionality.request_handler as rh
-
+import asyncio
 class Speech:
 
     def __init__(self , parent ):
@@ -23,21 +23,21 @@ class Speech:
         engine.say(text)
         engine.runAndWait()
 
-    def voice_input(self):
+    async def voice_input(self):
         r = sr.Recognizer()
-        
         with sr.Microphone() as source:
             try:
-                a= r.listen(source,timeout=2,phrase_time_limit=2)
-                return r.recognize_google(a)
+                a=r.listen(source,timeout=3)
+                return  r.recognize_google(a)
             except:
-                pass
+               self.parent.speech.say("don't")
+                
 
-    def gather_voice_init(self):
-        data = self.voice_input()
+    async def gather_voice_init(self):
+        data = await self.voice_input()
         if data == "Nova":
             self.say("Yes ,I am listening")
-            self.gather_voice_input_and_route()
+            await self.gather_voice_input_and_route()
 
     def silent_mode_temp(self):
         time.sleep(40)
@@ -48,8 +48,8 @@ class Speech:
             if data == "Nova turn on":
                 break
 
-    def gather_voice_input_and_route(self):
-        data = self.voice_input()
+    async def gather_voice_input_and_route(self):
+        data = await self.voice_input()
         if data == None:
             self.say("Sorry Didn't quite get that!")
         else:

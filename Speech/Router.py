@@ -6,7 +6,7 @@ class Router:
     def route_priority_one(self ,command):
        
         if "what is" in command:
-            self.parent.wiki_handler.search_and_say()
+            self.parent.wiki_handler.search_and_say(command)
 
         elif command == "status":
             pass
