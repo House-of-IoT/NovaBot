@@ -3,7 +3,6 @@ from Speech.Speech import Speech
 from CommandFunctionality.socket_handler import SocketHandler
 import websockets
 import asyncio
-import threading
 
 class Main:
     def __init__(self):
@@ -16,22 +15,25 @@ class Main:
         self.tasks = []
 
     async def start(self:int) :
-        self.speech.say("Hello")
-        while self.running == True:
-            if self.enabled == True:
-               await self.speech.gather_voice_init()
-            else:
-                if self.streaming == True:
-                    pass #stream 
+
+            self.speech.say("Hello")
+            while True:
+                await asyncio.sleep(3)
+                if self.enabled == True:
+                    await self.speech.gather_voice_init()
                 else:
-                    pass #do nothing
+                    if self.streaming == True:
+                        pass #stream 
+                    else:
+                        pass #do nothing
 
 
 
     async def listen(self):
-        t1 = loop.create_task(self.start())
-        t2 = loop.create_task(self.socket_handler.listen())
-        await asyncio.wait([t1,t2])
+            
+            t2 = loop.create_task(self.start())
+            t1 = loop.create_task(self.socket_handler.listen())
+            await asyncio.wait([t1,t2])
 
 
     
