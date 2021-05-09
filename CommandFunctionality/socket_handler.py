@@ -9,23 +9,33 @@ class SocketHandler:
         self.parent = parent
 
     async def listen(self ):
-            websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None )
-
-            while True: #Run this forever
-                try:    
+            try:
+                websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None )
+                while True: #Run this forever
                     if self.connected == True:
-                            message = await websocket.recv() #recv
-                            await asyncio.sleep(3)
-                          
-                    else:
-                            
+                            message = await websocket.recv() 
+                            await self.route(message ,websocket)
+                            await asyncio.sleep(2)                         
+                    else:                           
                             message = await websocket.recv()
-                            await websocket.send("bot")
                             await websocket.send("will")
-                            message = await websocket.recv()
-                            self.connected = True
-                except Exception as e:
-                    print(e)
-             
+                            await websocket.send("bot")
+                            response = await websocket.recv()
+                            self.check_response(response)
+            except Exception as e:
+                print(e)
 
+    def check_response(self,response ):
+        if response == "connected!!":
+            self.connected = True
+            self.parent.speech.say("you are now connected to the remote server")
+        else:
+            self.parent.speech.say("Issue connecting to the remote server")
         
+    async def route(self , command , websocket):
+        if command == "say":
+            data = await websocket.recv()
+            self.parent.speech.say(data)
+            
+        elif command == "stream":
+            self.parent.voice_enabled = False
