@@ -7,12 +7,14 @@ class SocketHandler:
     def __init__(self ,parent):
         self.connected = False
         self.parent = parent
+        
 
     async def listen(self ):
             try:
-                websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None )
+                websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None)
                 while True: #Run this forever
                     if self.connected == True:
+
                             message = await websocket.recv() 
                             await self.route(message ,websocket)
                             await asyncio.sleep(2)                         
@@ -36,6 +38,18 @@ class SocketHandler:
         if command == "say":
             data = await websocket.recv()
             self.parent.speech.say(data)
-            
         elif command == "stream":
-            self.parent.voice_enabled = False
+            self.parent.enabled = False
+            self.parent.streaming = True
+            self.parent.alarm = False
+        elif command == "disable":
+            self.parent.enabled = False
+        elif command == "enable":
+            self.parent.enabled = True
+            self.parent.alarm = False
+            self.parent.streaming = False
+        elif command == "alarm":
+            self.parent.enabled = False
+            self.parent.streaming = False
+            self.parent.alarm = True
+        
