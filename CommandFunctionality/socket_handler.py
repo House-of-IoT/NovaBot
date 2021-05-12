@@ -8,7 +8,6 @@ class SocketHandler:
         self.connected = False
         self.parent = parent
         
-
     async def listen(self ):
             try:
                 websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None)
@@ -44,6 +43,7 @@ class SocketHandler:
             self.parent.alarm = False
         elif command == "disable":
             self.parent.enabled = False
+            print("disabled")
         elif command == "enable":
             self.parent.enabled = True
             self.parent.alarm = False
