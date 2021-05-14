@@ -10,6 +10,12 @@ class RequestHandler:
     def issue(self):
         self.parent.say("There was an issue with the request!")
         
+    async def gather_peers(self):
+        connection =self.parent.parent.socket_handler.connection
+        await connection.send("devices")
+        message = await connection.recv()
+        self.parent.say(message)
+
     def get(self,url,timeout):
         try:
             data = requests.get("https://geek-quote-api.herokuapp.com/v1/quote/1" , timeout = timeout)
