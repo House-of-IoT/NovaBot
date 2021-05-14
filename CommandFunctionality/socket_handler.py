@@ -7,13 +7,15 @@ class SocketHandler:
     def __init__(self ,parent):
         self.connected = False
         self.parent = parent
+        self.connection = None
         
     async def listen(self ):
             try:
                 websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None)
-                while True: #Run this forever
+                while True: 
                     if self.connected == True:
-
+                            if self.connection == None:
+                                self.connection = websocket
                             message = await websocket.recv() 
                             await self.route(message ,websocket)
                             await asyncio.sleep(2)                         
