@@ -17,6 +17,7 @@ class SocketHandler:
                             if self.connection == None:
                                 self.connection = websocket
                             message = await websocket.recv() 
+                            print(message)
                             await self.route(message ,websocket)
                             await asyncio.sleep(2)                         
                     else:                           
@@ -36,7 +37,7 @@ class SocketHandler:
             self.parent.speech.say("Issue connecting to the remote server")
         
     async def route(self , command , websocket):
-        if command == "say":
+        if command == "say" or command == "device_data":
             data = await websocket.recv()
             self.parent.speech.say(data)
         elif command == "stream":

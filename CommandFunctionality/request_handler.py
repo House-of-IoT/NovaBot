@@ -12,9 +12,8 @@ class RequestHandler:
         
     async def gather_peers(self):
         connection =self.parent.parent.socket_handler.connection
-        await connection.send("devices")
-        message = await connection.recv()
-        self.parent.say(message)
+        #the response is handled in the socket handler
+        await connection.send("devices") 
 
     def get(self,url,timeout):
         try:
