@@ -7,36 +7,31 @@ class Router:
        
         if "what is" in command:
             self.parent.wiki_handler.search_and_say(command)
-
         elif command == "status":
-            pass
+            if self.parent.parent.socket_handler.connected == True:
+                self.parent.say("connected")
+            else:
+                self.parent.say("not connected")
         elif command == "twitter status":
             pass
-        elif command == "github status":
-            pass
-        elif command == "disable camera":
-            pass
+        elif command == "github stats":
+            self.parent.request_handler.gather_github_stats()
         elif command == "silent mode":
-            pass
-        elif command == "logging mode":
-            pass
+            self.parent.parent.enabled = False
         elif command == "peer status":
-            pass
+            self.parent.parent.request_handler.gather_peers()
         else:
             self.route_priority_two(command)
 
     def route_priority_two(self,command):
         if command == "weather":
-            pass
+            self.parent.request_handler.say_current_weather("chicago")
         elif command == "events":#calendar
-            pass
-        elif command == "server status":
             pass
         elif command == "geek quote" or command == "geek quotes" or command =="geek":
             self.parent.request_handler.say_geek_quote()
-
         elif command == "connect":
-             self.parent.parent.socket_handler.connect_to_master_pi()
+            self.parent.parent.socket_handler.connect_to_master_pi()
         elif command == "joke":
             self.parent.request_handler.say_geek_joke()
         elif command == "sleep":

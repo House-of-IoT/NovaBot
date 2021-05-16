@@ -8,7 +8,7 @@ from . import Router
 sys.path.append('../CommandFunctionality')
 import CommandFunctionality.wiki_handler as wh
 import CommandFunctionality.request_handler as rh
-import asyncio
+
 class Speech:
 
     def __init__(self , parent ):
@@ -28,14 +28,17 @@ class Speech:
         with sr.Microphone() as source:
             try:
                 a=r.listen(source,timeout=3)
-                return  r.recognize_google(a)
-            except:
+                data = r.recognize_google(a)
+                print(data.lower())
+                return  r.recognize_google(a).lower()
+            except Exception as e:
+               print(e)
                self.parent.speech.say("don't")
                 
 
     async def gather_voice_init(self):
         data = await self.voice_input()
-        if data == "Nova":
+        if data == "nova":
             self.say("Yes ,I am listening")
             await self.gather_voice_input_and_route()
 
