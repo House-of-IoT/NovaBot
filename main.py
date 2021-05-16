@@ -9,7 +9,8 @@ class Main:
         self.speech = Speech(self)
         self.count = 0
         self.running = True
-        self.enabled = True
+        self.enabled = True 
+        self.alarm = False
         self.streaming = False
         self.socket_handler =  SocketHandler(self)
         self.tasks = []
