@@ -18,12 +18,22 @@ class RequestHandler:
 
     def get(self,url,timeout):
         try:
-            data = requests.get("https://geek-quote-api.herokuapp.com/v1/quote/1" , timeout = timeout)
+            data = requests.get(url, timeout = timeout)
             data_dict = json.loads(data.content.decode("utf8"))
             self.data = data_dict
             return True
         except:
             return False
+
+    def gather_github_stats(self):
+        try:
+            if self.get("https://api.github.com/users/ronaldcolyar" , 5) == True:
+                self.parent.say("you have " + str(self.data["followers"]) +"followers")
+            else:
+                self.parent.say("Issue gathering")
+
+        except:
+            print("issue")
 
     def say_geek_quote(self):
         if self.get("https://geek-quote-api.herokuapp.com/v1/quote/1" , 5) == True:
@@ -31,12 +41,12 @@ class RequestHandler:
         else:
             self.issue()
         
-    def say_weather_current(self,place):
+    def say_current_weather(self,place):
         url  = f"http://api.weatherapi.com/v1/current.json?key=c74cbac3960c4c729e052715210205&q={place}&aqi=no"
-        if self.get(url) == True:
+        if self.get(url,5) == True:
             temp_f = self.data["current"]["temp_f"]
             temp_c = self.data["current"]["temp_c"]
-            wind_mph = self.data["wind_mph"]
+            wind_mph = self.data["current"]["wind_mph"]
             self.parent.say(f"Here is the data for {place}")
             self.parent.say(f"{temp_f}  degrees fahrenheit")
             self.parent.say(f"{temp_c}  degrees celcius")
