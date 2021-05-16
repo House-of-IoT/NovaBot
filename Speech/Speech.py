@@ -56,5 +56,5 @@ class Speech:
         if data == None:
             self.say("Sorry Didn't quite get that!")
         else:
-            self.router.route_priority_one(data)
+            await self.router.route_priority_one(data)
     

@@ -3,7 +3,7 @@ class Router:
         self.parent = parent
     
 
-    def route_priority_one(self ,command):
+    async def route_priority_one(self ,command):
        
         if "what is" in command:
             self.parent.wiki_handler.search_and_say(command)
@@ -19,7 +19,7 @@ class Router:
         elif command == "silent mode":
             self.parent.parent.enabled = False
         elif command == "peer status":
-            self.parent.parent.request_handler.gather_peers()
+           await self.parent.request_handler.gather_peers()
         else:
             self.route_priority_two(command)
 
