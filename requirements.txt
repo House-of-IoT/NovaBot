@@ -1,0 +1,7 @@
+pocketsphinx
+pyaudio
+websockets
+asyncio
+speechrecognition
+pyttsx3
+wikipedia
