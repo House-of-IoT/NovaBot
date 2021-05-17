@@ -23,7 +23,7 @@ class WikiHandler:
         self.count
 
     def search_and_say(self, input_data):
-        page_name = input_data[6::]
+        page_name = input_data[7::]
         print(page_name)
         result = self.gather_page(page_name)
         if result == True:
