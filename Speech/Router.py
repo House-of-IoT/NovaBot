@@ -12,8 +12,6 @@ class Router:
                 self.parent.say("connected")
             else:
                 self.parent.say("not connected")
-        elif command == "twitter status":
-            pass
         elif command == "github stats":
             self.parent.request_handler.gather_github_stats()
         elif command == "silent mode":
