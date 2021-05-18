@@ -24,7 +24,7 @@ class Main:
                 else:
                     if self.streaming == True:
                         if self.camera_handler.setup_was_successful:
-                            self.camera_handler.stream_data(self.socket_handler.connection)
+                            await self.camera_handler.stream_data(self.socket_handler.connection)
                         else:
                             self.enabled = True
                     else:
