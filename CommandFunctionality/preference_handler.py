@@ -1,4 +1,4 @@
-import json 
+ import json 
 
 class PreferenceHandler:
     def __init__(self , parent):
