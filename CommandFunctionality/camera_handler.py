@@ -13,6 +13,7 @@ class CameraHandler:
             self.camera.resolution = (1024, 768)
             self.camera.start_preview()
             time.sleep(2)
+            self.camera.stop_preview()
             self.stream = io.BytesIO()
         except:
             self.setup_was_successful = False

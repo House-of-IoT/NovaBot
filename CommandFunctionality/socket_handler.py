@@ -37,6 +37,7 @@ class SocketHandler:
             self.parent.speech.say("Issue connecting to the remote server")
         
     async def route(self , command , websocket):
+        print(command)
         if command == "say" or command == "device_data":
             data = await websocket.recv()
             self.parent.speech.say(data)
