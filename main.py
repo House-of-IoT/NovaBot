@@ -1,7 +1,7 @@
 
 from Speech.Speech import Speech
 from CommandFunctionality.socket_handler import SocketHandler
-import websockets
+from CommandFunctionality.camera_handler import CameraHandler
 import asyncio
 
 class Main:
@@ -13,6 +13,7 @@ class Main:
         self.alarm = False
         self.streaming = False
         self.socket_handler =  SocketHandler(self)
+        self.camera_handler = CameraHandler(self)
         self.tasks = []
 
     async def start(self:int) :
