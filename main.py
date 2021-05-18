@@ -8,13 +8,11 @@ class Main:
     def __init__(self):
         self.speech = Speech(self)
         self.count = 0
-        self.running = True
         self.enabled = True 
         self.alarm = False
         self.streaming = False
         self.socket_handler =  SocketHandler(self)
         self.camera_handler = CameraHandler(self)
-        self.tasks = []
 
     async def start(self:int) :
 
