@@ -25,6 +25,6 @@ class CameraHandler:
                 self.stream.truncate()
                 await asyncio.sleep(0.1)
         except:
-            pass # reenable the voice commands
+            self.parent.enabled = True
 
 
