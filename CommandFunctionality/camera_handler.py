@@ -19,13 +19,13 @@ class CameraHandler:
             self.setup_was_successful = False
             
     async def stream_data(self , connection):
-        try:
+
             for i in self.camera.capture_continuous(self.stream, 'jpeg' , use_video_port =True):
-                await connection.send(self.stream.read())
                 self.stream.seek(0)
+                await connection.send(self.stream.read())
+                
                 self.stream.truncate()
-                await asyncio.sleep(0.1)
-        except:
-            self.parent.enabled = True
+                await asyncio.sleep(0.5)
+ 
 
 

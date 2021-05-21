@@ -11,7 +11,7 @@ class SocketHandler:
         
     async def listen(self ):
             try:
-                websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None)
+                websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None  , max_size = 20000000)
                 while True: 
                     if self.connected == True:
                             if self.connection == None:
