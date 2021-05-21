@@ -6,7 +6,7 @@ today = date.today()
 
 class Logger:
     def __init__(self):
-        self.count = 0
+        self.succ_count = 0
         self.errors = 0
 
     def write_to_log_file(message):
