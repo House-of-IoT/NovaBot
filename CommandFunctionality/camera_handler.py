@@ -23,7 +23,7 @@ class CameraHandler:
             for i in self.camera.capture_continuous(self.stream, 'jpeg' , use_video_port =True):
                 self.stream.seek(0)
                 await connection.send(self.stream.read())
-                
+                self.stream.seek(0)
                 self.stream.truncate()
                 await asyncio.sleep(0.5)
  
