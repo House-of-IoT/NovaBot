@@ -14,20 +14,23 @@ class SocketHandler:
                 websocket = await websockets.connect('ws://localhost:50223'  ,  ping_interval= None  , max_size = 20000000)
                 while True: 
                     if self.connected == True:
-                            if self.connection == None:
-                                self.connection = websocket
-                            message = await websocket.recv() 
-                            print(message)
-                            await self.route(message ,websocket)
-                            await asyncio.sleep(2)                         
+                        await self.setup_connection_or_route_message(websocket)        
                     else:                           
-                            message = await websocket.recv()
+                            random_test_message = await websocket.recv() 
                             await websocket.send("will")
                             await websocket.send("bot")
                             response = await websocket.recv()
                             self.check_response(response)
             except Exception as e:
                 print(e)
+
+    async def setup_connection_or_route_message(self,websocket):
+        if self.connection == None:
+            self.connection = websocket
+        else:
+            message = await websocket.recv() 
+            await self.route(message ,websocket)
+            await asyncio.sleep(2)     
 
     def check_response(self,response ):
         if response == "connected!!":
@@ -48,7 +51,7 @@ class SocketHandler:
         elif command == "disable":
             self.parent.enabled = False
             print("disabled")
-        elif command == "enable":
+        elif command == "enable" or command == "finished_streaming":
             self.parent.enabled = True
             self.parent.alarm = False
             self.parent.streaming = False

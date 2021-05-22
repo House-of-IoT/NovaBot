@@ -19,13 +19,12 @@ class CameraHandler:
             self.setup_was_successful = False
             
     async def stream_data(self , connection):
-
             for i in self.camera.capture_continuous(self.stream, 'jpeg' , use_video_port =True):
                 if self.parent.streaming == True:
-                    self.stream.seek(0)
+                    self.stream.seek(0)#rewind stream
                     await connection.send(self.stream.read())
-                    self.stream.seek(0)
-                    self.stream.truncate()
+                    self.stream.seek(0)#rewind stream before clearing
+                    self.stream.truncate() #clear stream
                     await asyncio.sleep(0.1)
                 else:
                     break
