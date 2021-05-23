@@ -33,8 +33,6 @@ class Speech:
                 return  r.recognize_google(a).lower()
             except Exception as e:
                print(e)
-               self.parent.speech.say("don't")
-                
 
     async def gather_voice_init(self):
         data = await self.voice_input()
