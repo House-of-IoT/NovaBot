@@ -1,3 +1,5 @@
+# NOTE :This was just a MVP. It is functional but not fully tested.
+
 # NovaBot
 
 ## What is the nova bot?
